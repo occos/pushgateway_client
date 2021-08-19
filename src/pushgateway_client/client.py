@@ -2,14 +2,16 @@ import requests
 import socket
 
 
-def push_data(url, metric_name, metric_value, job_name, labels: dict):
+def push_data(url, metric_name, metric_value, job_name, labels: dict, timeout=5):
     """
     通过api的形式向Pushgateway推送数据，支持设置多个标签
+
     :param url: <ip地址>:<端口>；不需要填写http协议头
     :param metric_name: 指标名称
     :param metric_value: 指标的值
     :param job_name: job的名称
     :param labels: [字典类型]标签；可以自行设定多个标签，格式：<key>:<value>
+    :param timeout: 设定推送数据时的超时时间，默认值为5秒
     :return: 布尔类型
     """
     dim = ''
@@ -28,8 +30,8 @@ def push_data(url, metric_name, metric_value, job_name, labels: dict):
             headers=headers,
             url="http://{}/metrics/job/{}{}".format(url, job_name, dim),  # 外网地址
             data="{} {}\n".format(metric_name, metric_value),
+            timeout=timeout,
         )
-        print(result.text)
         return True
     except Exception:
         return False
