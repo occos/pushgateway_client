@@ -1,8 +1,11 @@
 # 安装模块
+
 ```shell
 pip install pushgateway-client
 ```
+
 如果国内下载较慢可以临时加速一下
+
 ```shell
 # pypi官网（原版拉取）
 pip install pushgateway-client --upgrade -i https://pypi.org/project   
@@ -15,6 +18,7 @@ pip install pushgateway-client --upgrade -i https://pypi.tuna.tsinghua.edu.cn/si
 ```
 
 # 使用说明
+
 ```
 from pushgateway_client import client   # 导入该模块
 
@@ -27,15 +31,18 @@ result = client.push_data(
         "aaa": "111",
         "bbb": "222",
         "ccc": "333",
-    })
+        },
+    timeout=5,                          # 设定推送数据时的超时时间，默认值为5秒
+    )
+
 
 print(result)                           # 返回值是一个布尔类型，便于您进行后续的集成开发
 print(type(result))
 ```
 
 # 查看效果
-![](http://img.taycc.com/picgo/img.png)
 
+![](http://img.taycc.com/picgo/img.png)
 
 This is a simple example package.You can check out the details at blog.taycc.com
 [https://blog.taycc.com](https://blog.taycc.com/pages/opensource/pushgateway_client.html).
